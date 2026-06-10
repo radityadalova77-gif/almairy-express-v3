@@ -146,6 +146,9 @@
             ->middleware('role:Admin')
             ->name('pengiriman.restore');
 
+        Route::get('/pengiriman-selesai', [PengirimanController::class, 'selesai'])
+            ->name('pengiriman.selesai');
+
         /*
         |--------------------------------------------------------------------------
         | Tracking

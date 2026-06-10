@@ -25,6 +25,7 @@ class Pengiriman extends Model
         'nama_penerima',
         'hp_penerima',
 
+        'asal_kota',
         'kota_tujuan',
         'pulau_tujuan',
 

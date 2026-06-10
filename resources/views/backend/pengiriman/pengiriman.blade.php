@@ -18,15 +18,24 @@
 
     {{-- Tabs --}}
     <div class="tabs">
-        <a href="{{ route('pengiriman.index') }}"
-            class="tab {{ !request()->routeIs('pengiriman.riwayat-hapus') ? 'active' : '' }}"
-            style="text-decoration:none">
-            Pengiriman Aktif ({{ $pengiriman->total() }})
-        </a>
+        <div class="tabs">
 
-        <a href="{{ route('pengiriman.riwayat-hapus') }}" class="tab" style="text-decoration:none;color:#dc2626">
-            Riwayat Hapus
-        </a>
+            <a href="{{ route('pengiriman.index') }}" class="tab">
+                Pengiriman Aktif
+            </a>
+
+            <a href="{{ route('pengiriman.selesai') }}"
+                class="tab">
+                Pengiriman Selesai
+            </a>
+
+            <a href="{{ route('pengiriman.riwayat-hapus') }}"
+                class="tab"
+                style="color:#dc2626">
+                Riwayat Hapus
+            </a>
+
+        </div>
     </div>
 
 
@@ -112,6 +121,7 @@
                 <tr>
                     <th>Resi</th>
                     <th>Pengirim</th>
+                    <th>Asal Kota</th>
                     <th>Tujuan</th>
                     <th>Pulau</th>
                     <th>Jml/Berat</th>
@@ -119,10 +129,7 @@
                     <th>Status</th>
                     <th>Tanggal Kirim</th>
                     <th>ETA</th>
-                    <th>Dibuat Oleh</th>
-                    @if(in_array(auth()->user()->role->nama, ['admin','operasional']))
                     <th>Aksi</th>
-                    @endif
                 </tr>
             </thead>
 
@@ -151,6 +158,8 @@
                     <td class="text-sm">
                         {{ $p->nama_pengirim }}
                     </td>
+
+                    <td>{{ $p->asal_kota }}</td>
 
                     <td>
                         {{ $p->kota_tujuan }}
@@ -192,10 +201,6 @@
 
                     <td class="text-muted text-sm">
                         {{ $p->estimasi_tiba?->format('d M Y') ?? '—' }}
-                    </td>
-
-                    <td class="text-sm">
-                        {{ $p->creator?->name ?? '-' }}
                     </td>
 
                     <td>
@@ -308,6 +313,11 @@
                 <div class="form-group">
                     <label>No HP Penerima</label>
                     <input name="hp_penerima">
+                </div>
+
+                <div class="form-group">
+                    <label>Asal Kota *</label>
+                    <input type="text" name="asal_kota" required>
                 </div>
 
                 <div class="form-group">

@@ -45,9 +45,9 @@ class PengirimanController extends Controller
             $query->whereDate('tanggal_kirim', '<=', $request->sampai);
         }
 
-        $pengiriman = $query->orderByDesc('created_at')
-            ->paginate(15)
-            ->withQueryString();
+        $pengiriman = Pengiriman::where('status', '!=', 'delivered')
+            ->latest()
+            ->paginate(10);
 
         return view('backend.pengiriman.pengiriman', compact('pengiriman'));
     }
@@ -61,21 +61,31 @@ class PengirimanController extends Controller
         return view('backend.pengiriman.pengiriman-hapus', compact('pengiriman'));
     }
 
+    public function selesai()
+    {
+        $pengiriman = Pengiriman::where('status', 'delivered')
+            ->latest()
+            ->paginate(10);
+
+        return view('backend.pengiriman.selesai', compact('pengiriman'));
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'jenis_barang' => 'nullable|string|max:100',
+            'jenis_barang' => 'nullable|string|max:20',
             'jumlah_koli'  => 'required|integer|min:1',
             'berat_kg'     => 'required|numeric|min:0.1',
 
             'harga_per_kg'   => 'required|numeric|min:0',
 
-            'nama_pengirim'  => 'required|string|max:100',
-            'hp_pengirim'    => 'nullable|string|max:20',
-            'nama_penerima'  => 'required|string|max:100',
-            'hp_penerima'    => 'nullable|string|max:20',
-            'kota_tujuan'    => 'required|string|max:100',
-            'pulau_tujuan'   => 'required|string',
+            'nama_pengirim'  => 'required|string|max:30',
+            'hp_pengirim'    => 'nullable|string|max:13',
+            'nama_penerima'  => 'required|string|max:30',
+            'hp_penerima'    => 'nullable|string|max:13',
+            'asal_kota'      => 'required|string|max:12',
+            'kota_tujuan'    => 'required|string|max:12',
+            'pulau_tujuan'   => 'required|string|max:12',
 
             'tanggal_kirim'  => 'required|date',
             'estimasi_tiba'  => 'nullable|date',
@@ -103,6 +113,7 @@ class PengirimanController extends Controller
                 'nama_penerima' => $validated['nama_penerima'],
                 'hp_penerima'   => $validated['hp_penerima'],
 
+                'asal_kota'     => $validated['asal_kota'],
                 'kota_tujuan'  => $validated['kota_tujuan'],
                 'pulau_tujuan' => $validated['pulau_tujuan'],
 
