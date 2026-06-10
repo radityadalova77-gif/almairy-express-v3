@@ -875,7 +875,6 @@
       $role = auth()->user()->role->nama ?? '';
       @endphp
 
-      @if(in_array($role, ['Admin','Kepala Toko','Operasional']))
       {{-- ================= UTAMA ================= --}}
       <div class="nav-section">
 
@@ -883,14 +882,12 @@
 
         <a href="{{ route('dashboard') }}"
           class="nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-
           <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
             <rect x="1" y="1" width="6" height="6" rx="1" />
             <rect x="9" y="1" width="6" height="6" rx="1" />
             <rect x="1" y="9" width="6" height="6" rx="1" />
             <rect x="9" y="9" width="6" height="6" rx="1" />
           </svg>
-
           Beranda
         </a>
 
@@ -915,6 +912,7 @@
           @if($aktifCount > 0)
           <span class="badge">{{ $aktifCount }}</span>
           @endif
+
         </a>
 
         <a href="{{ route('tracking.index') }}"
@@ -960,7 +958,7 @@
         </a>
         @endif
 
-        {{-- ADMIN + OPERASIONAL + KEPALA TOKO --}}
+        {{-- ADMIN ONLY --}}
         @if(in_array($role, ['Admin','Operasional','Kepala Toko']))
         <a href="{{ route('harga.index') }}"
           class="nav-item {{ request()->routeIs('harga.*') ? 'active' : '' }}">
@@ -982,7 +980,7 @@
         <div class="nav-label">Sistem</div>
 
         {{-- ADMIN + OPERASIONAL --}}
-        @if(in_array($role, ['Admin','Operasional']))
+        @if(in_array($role, ['Admin','perasional']))
         <a href="{{ route('pelanggan.index') }}"
           class="nav-item {{ request()->routeIs('pelanggan.*') ? 'active' : '' }}">
 
@@ -1020,7 +1018,7 @@
         </form>
 
       </div>
-      @endif
+
     </div>
 
     {{-- MAIN --}}

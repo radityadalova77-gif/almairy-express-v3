@@ -41,9 +41,10 @@
 @section('scripts')
 <script>
   function cariResi() {
+
     let resi = document.getElementById('resi').value;
 
-    fetch(`/tracking/cari?resi=${resi}`)
+    fetch(`{{ route('tracking.cari') }}?resi=${resi}`)
       .then(res => res.json())
       .then(data => {
 
@@ -57,29 +58,35 @@
         let p = data.pengiriman;
 
         document.getElementById('resi-text').innerText = p.resi;
-        document.getElementById('tujuan-text').innerText = p.kota_tujuan + ' (' + p.pulau_tujuan + ')';
-        document.getElementById('status-text').innerText = p.status_label;
+        document.getElementById('tujuan-text').innerText =
+          p.kota_tujuan + ' (' + p.pulau_tujuan + ')';
 
-        document.getElementById('progress-bar').style.width = p.progress + '%';
+        document.getElementById('status-text').innerText =
+          p.status_label;
+
+        document.getElementById('progress-bar').style.width =
+          p.progress + '%';
 
         let html = '';
 
         data.history.forEach(h => {
           html += `
-          <div class="tl-item">
-            <div class="tl-dot ${h.is_current ? 'current' : (h.is_done ? 'done' : '')}"></div>
-            <div class="tl-line"></div>
-            <div class="tl-time">${h.waktu}</div>
-            <div class="tl-text">${h.keterangan}</div>
-            <div class="tl-loc">${h.lokasi ?? ''}</div>
-          </div>
-        `;
+                <div class="tl-item">
+                    <div class="tl-dot ${h.is_current ? 'current' : (h.is_done ? 'done' : '')}"></div>
+                    <div class="tl-line"></div>
+                    <div class="tl-time">${h.waktu}</div>
+                    <div class="tl-text">${h.keterangan}</div>
+                    <div class="tl-loc">${h.lokasi ?? ''}</div>
+                </div>
+                `;
         });
 
         document.getElementById('timeline').innerHTML = html;
-
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.error(err);
+        alert('Terjadi kesalahan saat mengambil data tracking.');
+      });
   }
 </script>
 @endsection
