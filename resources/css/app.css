@@ -1,0 +1,60 @@
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.text-blue {
+    color: #2563eb;
+}
+
+.text-green {
+    color: #16a34a;
+}
+
+.small {
+    font-size: 14px;
+}
+
+.bar {
+    height: var(--h);
+    opacity: var(--o);
+}
+
+.notif-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.notif-item {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 7px 10px;
+    border-radius: 8px;
+    background: var(--bg);
+}
+
+.notif-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--dot);
+}
+
+.notif-title {
+    font-weight: 600;
+    color: var(--text);
+}
+
+.notif-text {
+    color: var(--text);
+}
+
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
