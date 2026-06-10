@@ -163,13 +163,13 @@
         Route::get(
             '/tracking/{pengiriman}/create',
             [TrackingController::class, 'create']
-        )->middleware('role:Admin,Aperasional')
+        )->middleware('role:Admin,Operasional')
             ->name('tracking.create');
 
         Route::post(
             '/tracking/store',
             [TrackingController::class, 'store']
-        )->middleware('role:Admin,Aperasional')
+        )->middleware('role:Admin,Oprasional')
             ->name('tracking.store');
 
         /*
@@ -182,7 +182,7 @@
             ->name('invoice.index');
 
         Route::post('/invoice', [InvoiceController::class, 'store'])
-            ->middleware('role:Admin,Aperasional')
+            ->middleware('role:Admin,Operasional')
             ->name('invoice.store');
 
         Route::get('/invoice/export/{id}', [InvoiceController::class, 'export'])
