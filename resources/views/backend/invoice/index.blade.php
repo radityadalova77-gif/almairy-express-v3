@@ -5,7 +5,7 @@
 
 @section('topbar-actions')
 
-@if(in_array(auth()->user()->role->nama, ['admin','operasional']))
+@if(in_array(auth()->user()->role->nama, ['Admin','Operasional']))
 <button class="btn btn-primary" onclick="openModal('add-invoice')">
     + Buat Invoice
 </button>
@@ -120,14 +120,14 @@
 
                         @elseif($inv->status === 'pending')
 
-                        @if(auth()->user()->role->nama == 'admin')
+                        @if(auth()->user()->role->nama == 'Admin')
                         <button class="btn btn-xs btn-danger" data-id="{{ $inv->id }}"
                             onclick="confirmVoid(this.dataset.id)">
                             Void
                         </button>
                         @endif
 
-                        @if(in_array(auth()->user()->role->nama, ['admin','operasional']))
+                        @if(in_array(auth()->user()->role->nama, ['Admin','Operasional']))
                         <form action="{{ url('/invoice/'.$inv->id.'/bayar') }}" method="POST" style="display:inline;">
                             @csrf
                             <button type="submit" class="btn btn-xs btn-success" style="padding:6px 12px;">
@@ -189,7 +189,7 @@
 @section('modals')
 
 
-@if(in_array(auth()->user()->role->nama, ['admin','operasional']))
+@if(in_array(auth()->user()->role->nama, ['Admin','Operasional']))
 {{-- ADD INVOICE --}}
 <div id="modal-add-invoice" class="modal-overlay hidden">
     <div class="modal">

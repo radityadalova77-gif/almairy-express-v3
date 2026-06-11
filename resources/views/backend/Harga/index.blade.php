@@ -6,7 +6,7 @@
 @section('content')
 
 {{-- FORM TAMBAH --}}
-@if(in_array(auth()->user()->role->nama, ['admin','operasional']))
+@if(in_array(auth()->user()->role->nama, ['Admin','Operasional']))
 <div class="card" style="margin-bottom:20px;">
 
     <form action="{{ route('harga.store') }}" method="POST">
@@ -57,7 +57,7 @@
                 <th>Harga/KG</th>
                 <th>Catatan</th>
 
-                @if(in_array(auth()->user()->role->nama, ['admin','operasional']))
+                @if(in_array(auth()->user()->role->nama, ['Admin','Operasional']))
                 <th>Aksi</th>
                 @endif
 
@@ -82,7 +82,7 @@
                 <td>{{ $h->catatan }}</td>
 
                 {{-- ADMIN + OPERASIONAL --}}
-                @if(in_array(auth()->user()->role->nama, ['admin','operasional']))
+                @if(in_array(auth()->user()->role->nama, ['Admin','Operasional']))
                 <td>
 
                     {{-- EDIT --}}
@@ -91,7 +91,7 @@
                     </a>
 
                     {{-- HAPUS ADMIN ONLY --}}
-                    @if(auth()->user()->role->nama == 'admin')
+                    @if(auth()->user()->role->nama == 'Admin')
                     <form action="{{ route('harga.destroy', $h->id) }}" method="POST" style="display:inline;">
 
                         @csrf
